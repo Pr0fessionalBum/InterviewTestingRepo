@@ -1,6 +1,6 @@
 require('dotenv').config();
-const app = require('./src/app');
-const { connectDb, closeDb, MONGODB_URI, MONGODB_DB } = require('./src/db/db');
+const app = require('./src/server/app');
+const { connectDb, closeDb, MONGODB_URI, MONGODB_DB } = require('./src/server/data/db');
 
 const PORT = process.env.PORT || 3000;
 
@@ -33,6 +33,9 @@ async function start() {
 start();
 
 process.on('SIGINT', async () => {
+  if (app.locals.sessionStore?.close) {
+    await app.locals.sessionStore.close();
+  }
   await closeDb();
   process.exit(0);
 });
