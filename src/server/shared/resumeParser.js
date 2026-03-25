@@ -1,15 +1,9 @@
-const { Console } = require('console');
 const fs = require('fs');
 const path = require('path');
 const { PdfReader } = require("pdfreader");
 const mammoth = require("mammoth");
 
-/**
- * TODO: Implement proper resume parsing (PDF/DOCX) using a library like pdf-parse or mammoth.
- * Return clean text for scoring, preview, and storage. Keep the signature the same.
- */
 async function parseResumeToText(filePath) {
-  // Allow a local, gitignored override for experimentation: src/server/shared/resumeParser.local.js
   const localParserPath = path.join(__dirname, 'resumeParser.local.js');
   if (fs.existsSync(localParserPath)) {
     try {
@@ -22,18 +16,15 @@ async function parseResumeToText(filePath) {
     }
   }
 
-  // Check if file exists
   if (!fs.existsSync(filePath)) {
     console.warn(`Resume file not found at path: ${filePath}`);
     return "";
   }
 
-  // Check if file type is .pdf
   if (path.extname(filePath).toLowerCase() == ".pdf") {
     return new Promise((resolve, reject) => {
-      let rows = {}; // Indexed by y-position
+      let rows = {};
 
-      // Function to build the output
       function buildText() {
         return Object.keys(rows)
           .sort((a, b) => parseFloat(a) - parseFloat(b))
@@ -43,7 +34,7 @@ async function parseResumeToText(filePath) {
 
       new PdfReader().parseFileItems(filePath, (err, item) => {
         if (err) return reject(err);
-        if (!item) { // Done parsing
+        if (!item) {
           return resolve(buildText());
         }
         if (item.text) {
@@ -53,12 +44,10 @@ async function parseResumeToText(filePath) {
     });
   }
 
-  // Check if file type is .docx
   else if (path.extname(filePath).toLowerCase() == ".docx") {
     return mammoth.convertToHtml({ path: filePath })
       .then(result => {
       const html = result.value;
-      const messages = result.messages; //Optional warnings
       return html;
     })
     .catch(error => {
@@ -67,7 +56,6 @@ async function parseResumeToText(filePath) {
     });
   }
 
-  // Fallback for unsupported file types
   else {
     console.warn(`Unsupported resume file type: ${path.extname(filePath)} for file: ${filePath}`);
     return "";

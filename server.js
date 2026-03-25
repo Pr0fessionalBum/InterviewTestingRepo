@@ -3,7 +3,6 @@ const app = require('./src/server/app');
 const { connectDb, closeDb, MONGODB_URI, MONGODB_DB } = require('./src/server/data/db');
 
 const PORT = process.env.PORT || 3000;
-const HOST = '0.0.0.0';
 
 if (!process.env.OPENAI_API_KEY) {
   console.warn(
@@ -21,8 +20,8 @@ async function start() {
   try {
     await connectDb(app);
 
-    app.listen(PORT, HOST, () => {
-      console.log(`Server running on http://${HOST}:${PORT}`);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
       console.log(`MongoDB connected to ${MONGODB_DB}`);
     });
   } catch (error) {

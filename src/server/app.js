@@ -81,10 +81,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/health', (req, res) => {
-  res.status(200).json({ ok: true });
-});
-
 app.use('/', homeRouter);
 app.use('/', authRouter);
 app.use('/openai', requireAuth, openaiRouter);
@@ -94,5 +90,3 @@ app.use('/profile', requireAuth, profileRouter);
 app.use('/resumes', requireAuth, resumesRouter);
 
 module.exports = app;
-
-console.log('Static files path:', path.join(__dirname, '..', 'public'));

@@ -1,8 +1,3 @@
-/**
- * Helper builders for MongoDB documents. These are not invoked yet,
- * but provide a consistent shape for future persistence.
- */
-
 const buildUser = ({ username, name, passwordHash, role = 'candidate' }) => ({
   username: username?.toLowerCase(),
   name,
@@ -146,7 +141,6 @@ const buildResumeFile = ({
   path,
   size,
   mimeType,
-  // TODO: add parsedText once resume parser is implemented
   uploadedAt: new Date(),
   archived: false,
 });
