@@ -498,3 +498,114 @@
 .total-row .bar-label span:first-child {
     font-weight: 700;
 }
+
+.admin-page {
+    padding-top: 36px;
+    align-items: stretch;
+}
+
+.admin-shell,
+.admin-detail-shell {
+    display: grid;
+    gap: 20px;
+}
+
+.admin-page__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.admin-search {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.admin-search input {
+    min-width: min(320px, 100%);
+}
+
+.admin-message {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+}
+
+.admin-message--error {
+    color: #ffd5d5;
+    background: rgba(180, 43, 43, 0.14);
+    border-color: rgba(246, 95, 95, 0.24);
+}
+
+.admin-message--success {
+    color: #d4ffe5;
+    background: rgba(21, 128, 61, 0.14);
+    border-color: rgba(45, 212, 191, 0.24);
+}
+
+.admin-user-grid,
+.admin-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+}
+
+.admin-user-card,
+.admin-account-summary {
+    display: grid;
+    gap: 14px;
+}
+
+.admin-user-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: start;
+}
+
+.admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+}
+
+.admin-stat-grid div {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.10);
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.admin-stat-grid dt {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.admin-stat-grid dd {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.admin-form-container {
+    max-width: none;
+}
+
+.admin-form-container select {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #3a4558;
+    background: #10141c;
+    color: #f8fafc;
+}

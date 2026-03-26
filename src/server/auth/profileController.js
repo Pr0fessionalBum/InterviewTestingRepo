@@ -27,6 +27,7 @@ const renderProfile = async (req, res, { error = null, success = null } = {}) =>
 
   if (user && req.session?.user) {
     req.session.user.name = user.name;
+    req.session.user.role = user.role || 'candidate';
   }
 
   res.render('profile', {

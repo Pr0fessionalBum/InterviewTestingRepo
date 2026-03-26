@@ -58,6 +58,16 @@ If omitted, the app falls back to `MODEL`.
 
 Optional override for the MongoDB collection used by the session store.
 
+### `ADMIN_USERNAMES`
+
+Optional comma-separated bootstrap list of usernames that should be promoted to `admin` when they sign up or log in.
+
+Example:
+
+```env
+ADMIN_USERNAMES=ariana,teamlead
+```
+
 ### `DB_BOOT_MODE`
 
 Optional database boot selector.

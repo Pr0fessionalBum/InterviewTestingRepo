@@ -37,6 +37,14 @@ LOCAL_MONGODB_URI=mongodb://127.0.0.1:27017
 LOCAL_MONGODB_DB=VirtualInterviewLocal
 ```
 
+If you want to bootstrap one or more admin accounts, add:
+
+```env
+ADMIN_USERNAMES=yourusername
+```
+
+Any listed username will be promoted to `admin` the next time that user signs up or logs in.
+
 ## Run Locally
 
 Development:

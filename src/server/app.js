@@ -18,6 +18,7 @@ const openaiRouter = require('./routes/openai');
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const resumesRouter = require('./routes/resumes');
+const adminRouter = require('./routes/admin');
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
 const isProduction = process.env.NODE_ENV === 'production';
 const sessionSecret = process.env.SESSION_SECRET || 'dev-only-insecure-session-secret';
@@ -82,6 +83,14 @@ const requireAuth = (req, res, next) => {
   return res.redirect('/login');
 };
 
+const requireAdmin = (req, res, next) => {
+  if (req.session?.user?.role === 'admin') return next();
+  return res.status(403).render('error', {
+    title: 'Admin Access Required',
+    message: 'This page is only available to admin accounts.',
+  });
+};
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.session?.user || null;
   res.locals.activePath = req.path.split('?')[0];
@@ -95,5 +104,6 @@ app.use('/upload', requireAuth, uploadRouter);
 app.use('/results', requireAuth, resultsRouter);
 app.use('/profile', requireAuth, profileRouter);
 app.use('/resumes', requireAuth, resumesRouter);
+app.use('/admin', requireAuth, requireAdmin, adminRouter);
 
 module.exports = app;
