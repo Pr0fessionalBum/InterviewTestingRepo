@@ -132,7 +132,8 @@ const createTurnAnalysis = async ({
           'Return exactly this shape: {"score":0,"verdict":"strong","questionAnswered":true,"summary":"","positives":["","",""],"negatives":["","",""]}',
           'score must be from 1 to 10 and reflect how effective the answer was for that question.',
           'summary must be 2 or 3 direct sentences in second person.',
-          'positives and negatives must each contain exactly 3 concise items.',
+          'Dont fill in positves and negatives with generic praise or criticism. Only give positives for clear strengths and negatives for clear weaknesses based on the evidence in the resume and job description. If there are no clear positives or negatives, return an empty array for each.',
+          'If the candidate answers in an unreadble or encoded way, say so and mark questionAnswered as false.',  
         ].join(' '),
       },
       {
@@ -193,7 +194,7 @@ const createFinalInterviewReview = async ({
           'Use category scores from 1 to 10 and overallScore from 0 to 100.',
           'Overall summary should be 5 to 8 sentences in second person.',
           'patterns should describe the repeated trends across the interview in 3 to 5 sentences.',
-          'strengths and improvements must each contain exactly 3 concrete bullets.',
+          'strengths and improvements must each contain exactly 0-5 concrete bullets. Do not include generic advice that isnt directly supported by the transcript and turn reviews. If there are no clear strengths or improvements, return an empty array for each. Be specific about what was good or needs improvement, and tie it to evidence from the transcript.',
           'Return exactly this shape: {"overallScore":0,"letterGrade":"","categoryScores":{"relevance":0,"star":0,"roleAlignment":0,"clarity":0,"confidence":0},"overallSummary":"","strongestArea":"","weakestArea":"","patterns":"","strengths":["","",""],"improvements":["","",""]}',
         ].join(' '),
       },

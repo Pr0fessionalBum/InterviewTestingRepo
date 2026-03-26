@@ -58,6 +58,35 @@ If omitted, the app falls back to `MODEL`.
 
 Optional override for the MongoDB collection used by the session store.
 
+### `DB_BOOT_MODE`
+
+Optional database boot selector.
+
+Recommended values:
+
+- `local` to force the app to boot against local MongoDB
+- omit it to use `MONGODB_URI` normally
+
+### `USE_LOCAL_DB`
+
+Optional boolean shortcut for local development.
+
+Truthy values such as `true`, `1`, or `yes` force local MongoDB boot.
+
+### `LOCAL_MONGODB_URI`
+
+Optional override for the local MongoDB URI when `DB_BOOT_MODE=local`.
+
+Default in code:
+
+```env
+mongodb://127.0.0.1:27017
+```
+
+### `LOCAL_MONGODB_DB`
+
+Optional override for the local database name when `DB_BOOT_MODE=local`.
+
 ## Example
 
 ```env
@@ -70,8 +99,17 @@ MODEL=gpt-4.1-mini
 REVIEW_MODEL=gpt-4.1-mini
 ```
 
+Local MongoDB override example:
+
+```env
+DB_BOOT_MODE=local
+LOCAL_MONGODB_URI=mongodb://127.0.0.1:27017
+LOCAL_MONGODB_DB=VirtualInterviewLocal
+```
+
 ## Notes
 
 - Do not commit `.env`.
 - Rotate secrets if they are ever pasted into chat, screenshots, or Git history.
 - Atlas passwords with special characters must be URL-encoded in `MONGODB_URI`.
+- `DB_BOOT_MODE=local` makes both the main app connection and the session store use local MongoDB together.

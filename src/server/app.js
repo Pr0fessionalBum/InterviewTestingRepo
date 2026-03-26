@@ -8,6 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const session = require('express-session');
 const { MongoSessionStore } = require('./shared/mongoSessionStore');
+const { getMongoConfig } = require('./shared/databaseConfig');
 const app = express();
 
 const uploadRouter = require('./routes/upload');
@@ -20,9 +21,10 @@ const resumesRouter = require('./routes/resumes');
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
 const isProduction = process.env.NODE_ENV === 'production';
 const sessionSecret = process.env.SESSION_SECRET || 'dev-only-insecure-session-secret';
+const mongoConfig = getMongoConfig();
 const sessionStore = new MongoSessionStore({
-  uri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017',
-  dbName: process.env.MONGODB_DB || 'virtual_interview',
+  uri: mongoConfig.uri,
+  dbName: mongoConfig.dbName,
   collectionName: process.env.SESSION_COLLECTION || 'sessions',
 });
 

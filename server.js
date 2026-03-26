@@ -6,8 +6,10 @@
 require('dotenv').config();
 const app = require('./src/server/app');
 const { connectDb, closeDb, MONGODB_URI, MONGODB_DB } = require('./src/server/data/db');
+const { getMongoConfig, DEFAULT_LOCAL_URI } = require('./src/server/shared/databaseConfig');
 
 const PORT = process.env.PORT || 3000;
+const mongoConfig = getMongoConfig();
 
 if (!process.env.OPENAI_API_KEY) {
   console.warn(
@@ -15,9 +17,11 @@ if (!process.env.OPENAI_API_KEY) {
   );
 }
 
-if (!process.env.MONGODB_URI) {
+if (mongoConfig.mode === 'local') {
+  console.log(`DB boot mode: local (${mongoConfig.uri}/${mongoConfig.dbName})`);
+} else if (mongoConfig.mode === 'local-fallback') {
   console.warn(
-    `Warning: MONGODB_URI not set. Defaulting to local instance at ${MONGODB_URI}/${MONGODB_DB}`
+    `Warning: MONGODB_URI not set. Defaulting to local instance at ${DEFAULT_LOCAL_URI}/${mongoConfig.dbName}`
   );
 }
 
@@ -27,7 +31,7 @@ async function start() {
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
-      console.log(`MongoDB connected to ${MONGODB_DB}`);
+      console.log(`MongoDB connected to ${MONGODB_DB} via ${mongoConfig.displayName}`);
     });
   } catch (error) {
     console.error('Failed to start server', error);

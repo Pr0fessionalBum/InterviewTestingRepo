@@ -20,15 +20,14 @@ const generateBackgroundNote = async ({ openaiClient, resumeText, company, role,
       model: interviewModel,
       temperature: 0.4,
       messages: [
-        {
-          role: 'system',
-          content:
-            'You are preparing a fast research note for an interviewer. Summarize in <=120 words, comma-separated phrases only: top role requirements, common/previous interview question themes for this company/role (if unknown, use industry-standard for that role), notable company focus areas, web-retrieved signals (if any), and 4-6 sharp resume signals (skills, impacts, industries). Keep terse and scannable.',
-        },
-        {
-          role: 'user',
-          content: `Company: ${company}\nRole: ${role}\nWeb signals: ${webSignals || 'none'}\nResume (truncated): ${resumeText.slice(0, 2000)}`,
-        },
+      {
+        role: 'system',
+        content: 'You are preparing a fast research note for an interviewer. Summarize in <=120 words, comma-separated phrases only: top role requirements, common/previous interview question themes for this company/role (if unknown, use industry-standard for that role), notable company focus areas, web-retrieved signals (if any), and 4-6 sharp resume signals (skills, impacts, industries). Keep terse and scannable.',
+      },
+      {
+        role: 'user',
+        content: `Company: ${company},\nRole: ${role},\nWeb signals: ${webSignals || 'none'},\nResume (truncated): ${resumeText.slice(0, 2000)}`,
+      },
       ],
       max_tokens: 200,
     });

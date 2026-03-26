@@ -10,6 +10,7 @@ const { runWebResearch } = require('../shared/webResearch');
 const { toObjectId, insertResumeFile, insertResumeScore } = require('./resumeRepository');
 
 const model = process.env.MODEL || 'gpt-4.1-mini';
+const MAX_STRICTNESS = 1;
 let client;
 
 const getScoringClient = () => {
@@ -52,12 +53,10 @@ const clampScore = (value, max) => {
   return Math.min(Math.max(Math.round(num), 0), max);
 };
 
-const applyQualityCaps = (score, breakdown, strictness = 0.5) => {
+const applyQualityCaps = (score, breakdown) => {
   const capped = Number(score) || 0;
-  const strictnessLevel = clamp01(strictness);
-
-  const severeCap = strictnessLevel >= 0.75 ? 52 : strictnessLevel >= 0.6 ? 55 : 59;
-  const moderateCap = strictnessLevel >= 0.75 ? 62 : strictnessLevel >= 0.6 ? 65 : 69;
+  const severeCap = MAX_STRICTNESS >= 0.75 ? 52 : MAX_STRICTNESS >= 0.6 ? 55 : 59;
+  const moderateCap = MAX_STRICTNESS >= 0.75 ? 62 : MAX_STRICTNESS >= 0.6 ? 65 : 69;
 
   if (
     breakdown.resume_completeness <= 4 ||
@@ -79,37 +78,14 @@ const applyQualityCaps = (score, breakdown, strictness = 0.5) => {
   return capped;
 };
 
-const getStrictnessPrompt = (strictness = 0.5) => {
-  const level = clamp01(strictness);
-
-  if (level >= 0.8) {
-    return [
-      'Scoring strictness: very high.',
-      'Use a highly skeptical hiring bar.',
-      'Only reward clearly proven depth, strong evidence, and repeated specificity.',
-      'Thin or underexplained resumes should score sharply lower.',
-      'Do not let a resume feel strong unless it would hold up under close recruiter and hiring-manager review.',
-    ].join(' ');
-  }
-
-  if (level >= 0.6) {
-    return [
-      'Scoring strictness: high.',
-      'Be more demanding than average.',
-      'Penalize resumes that are light on context, detail, ownership, or demonstrated impact.',
-      'Do not give the benefit of the doubt when the evidence is incomplete.',
-    ].join(' ');
-  }
-
-  if (level <= 0.25) {
-    return [
-      'Scoring strictness: low.',
-      'Still be honest, but allow somewhat more benefit of the doubt for concise resumes if they show some relevant alignment and measurable impact.',
-    ].join(' ');
-  }
-
-  return ['Scoring strictness: standard.', 'Use a balanced but still evidence-based hiring standard.'].join(' ');
-};
+const getStrictnessPrompt = () =>
+  [
+    'Scoring strictness: very high.',
+    'Use a highly skeptical hiring bar.',
+    'Only reward clearly proven depth, strong evidence, and repeated specificity.',
+    'Thin or underexplained resumes should score sharply lower.',
+    'Do not let a resume feel strong unless it would hold up under close recruiter and hiring-manager review.',
+  ].join(' ');
 
 const readResumeText = async (filePath) => {
   try {
@@ -120,9 +96,8 @@ const readResumeText = async (filePath) => {
   }
 };
 
-const getFitAssessment = async ({ resumeText, jobDescription, company, webResearch, strictness = 0.5 }) => {
+const getFitAssessment = async ({ resumeText, jobDescription, company, webResearch }) => {
   const scoringClient = getScoringClient();
-  const strictnessValue = clamp01(strictness);
   const completion = await scoringClient.chat.completions.create({
     model,
     temperature: 0.4,
@@ -133,7 +108,7 @@ const getFitAssessment = async ({ resumeText, jobDescription, company, webResear
         content: [
           `You are a hiring manager at ${company || 'the target company'}.`,
           'Evaluate both role fit and resume quality with a strict standard.',
-          getStrictnessPrompt(strictnessValue),
+          getStrictnessPrompt(),
           'Be skeptical and conservative. Do not assume competence from brevity, polish, or keyword overlap.',
           "Compare the candidate's skills, experience, education, project depth, and written evidence against the job description and inferred company expectations.",
           'Return JSON only with keys: title, role_fit, experience_depth, quantified_impact, skills_evidence_alignment, resume_completeness, professional_structure_clarity, project_quality, education_certifications, compatibility_score, positives, negatives, summary.',
@@ -180,7 +155,7 @@ const getFitAssessment = async ({ resumeText, jobDescription, company, webResear
   const computedTotal = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
   return {
     title: (parsed.title || 'Resume Strength & Role Fit').toString().trim() || 'Resume Strength & Role Fit',
-    compatibility_score: applyQualityCaps(Math.min(100, computedTotal), breakdown, strictnessValue),
+    compatibility_score: applyQualityCaps(Math.min(100, computedTotal), breakdown),
     breakdown,
     positives: Array.isArray(parsed.positives) ? parsed.positives.filter(Boolean) : [],
     negatives: Array.isArray(parsed.negatives) ? parsed.negatives.filter(Boolean) : [],
@@ -194,13 +169,11 @@ const createResumeAssessment = async ({
   file,
   company = '',
   jobDescription = '',
-  strictness = 0.5,
   webSearchEnabled = true,
 }) => {
   const jobDescForLLM = jobDescription.slice(0, 4000);
   const jobDescForDisplay = jobDescription.slice(0, 700);
   const userObjectId = toObjectId(sessionUser?.id);
-  const strictnessValue = clamp01(strictness);
 
   const resumeDoc = buildResumeFile({
     userId: userObjectId,
@@ -243,7 +216,6 @@ const createResumeAssessment = async ({
         jobDescription: jobDescForLLM,
         company,
         webResearch: webSummary || '',
-        strictness: strictnessValue,
       });
 
       if (assessment) {

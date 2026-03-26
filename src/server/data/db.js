@@ -4,10 +4,9 @@
  * Outputs: Connected Mongo client/database handles, initialized collections, and collection indexes.
  */
 const { MongoClient } = require('mongodb');
+const { getMongoConfig } = require('../shared/databaseConfig');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017';
-const MONGODB_DB = process.env.MONGODB_DB || 'virtual_interview';
-
+const { uri: MONGODB_URI, dbName: MONGODB_DB } = getMongoConfig();
 const client = new MongoClient(MONGODB_URI);
 
 async function connectDb(app) {

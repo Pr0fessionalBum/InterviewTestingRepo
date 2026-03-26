@@ -99,7 +99,6 @@ const getUploadResultView = async ({ collections, sessionUser, file, body }) => 
     file,
     company: body?.company || '',
     jobDescription: body?.jobDescription || '',
-    strictness: body?.strictness ?? 0.5,
     webSearchEnabled: isEnabledField(body?.webSearchEnabled, true),
   });
 

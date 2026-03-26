@@ -29,6 +29,14 @@ MODEL=gpt-4.1-mini
 REVIEW_MODEL=gpt-4.1-mini
 ```
 
+If you want to boot against a local MongoDB instance instead of Atlas:
+
+```env
+DB_BOOT_MODE=local
+LOCAL_MONGODB_URI=mongodb://127.0.0.1:27017
+LOCAL_MONGODB_DB=VirtualInterviewLocal
+```
+
 ## Run Locally
 
 Development:
