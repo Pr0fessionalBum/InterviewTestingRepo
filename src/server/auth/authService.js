@@ -4,13 +4,30 @@
  * Outputs: Validated session-safe user objects for signup and login flows.
  */
 const bcrypt = require('bcryptjs');
-const { findUserByUsername, createUser } = require('./userRepository');
+const { findUserByUsername, createUser, updateUserById } = require('./userRepository');
+
+const getBootstrapAdmins = () =>
+  (process.env.ADMIN_USERNAMES || '')
+    .split(',')
+    .map((username) => username.trim().toLowerCase())
+    .filter(Boolean);
+
+const shouldBootstrapAdmin = (username) => getBootstrapAdmins().includes((username || '').trim().toLowerCase());
 
 const toSessionUser = (user) => ({
   id: user._id.toString(),
   username: user.username,
   name: user.name,
+  role: user.role || 'candidate',
 });
+
+const ensureBootstrapAdminRole = async (collections, user) => {
+  if (!user || user.role === 'admin' || !shouldBootstrapAdmin(user.username)) {
+    return user;
+  }
+
+  return updateUserById(collections, user._id, { role: 'admin' });
+};
 
 const signupUser = async (collections, { username, name, password }) => {
   if (!username || !password) {
@@ -28,7 +45,8 @@ const signupUser = async (collections, { username, name, password }) => {
 
   const passwordHash = await bcrypt.hash(password, 10);
   const user = await createUser(collections, { username, name, passwordHash });
-  return toSessionUser(user);
+  const hydratedUser = await ensureBootstrapAdminRole(collections, user);
+  return toSessionUser(hydratedUser);
 };
 
 const loginUser = async (collections, { username, password }) => {
@@ -52,7 +70,8 @@ const loginUser = async (collections, { username, password }) => {
     throw error;
   }
 
-  return toSessionUser(user);
+  const hydratedUser = await ensureBootstrapAdminRole(collections, user);
+  return toSessionUser(hydratedUser);
 };
 
 module.exports = {
