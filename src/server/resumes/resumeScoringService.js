@@ -141,6 +141,7 @@ const getFitAssessment = async ({ resumeText, jobDescription, company, webResear
           'If the resume is thin, vague, or underexplained, score lower rather than higher.',
           'compatibility_score must equal the sum of the eight components, capped at 100.',
           `Use these web research cues for context: ${webResearch || 'none available'}.`,
+          'If the uploaded file is not a resume or is unreadable, say so and give it a zero score.',
         ].join(' '),
       },
       {
