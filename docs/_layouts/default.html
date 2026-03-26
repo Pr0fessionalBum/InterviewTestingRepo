@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div>
+            <p class="eyebrow">Documentation</p>
+            <a class="site-title" href="{{ '/index.html' | relative_url }}">{{ site.title }}</a>
+            <p class="site-tagline">{{ site.description }}</p>
+          </div>
+          <nav class="site-nav" aria-label="Primary">
+            <a href="{{ '/index.html' | relative_url }}">Home</a>
+            <a href="{{ '/architecture.html' | relative_url }}">Architecture</a>
+            <a href="{{ '/setup.html' | relative_url }}">Setup</a>
+            <a href="{{ '/deployment.html' | relative_url }}">Deployment</a>
+            <a href="{{ '/routes.html' | relative_url }}">Routes</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-shell">
+        <aside class="docs-sidebar">
+          <div class="glass docs-sidebar__card">
+            <p class="eyebrow">Browse</p>
+            <a href="{{ '/overview.html' | relative_url }}">Project Overview</a>
+            <a href="{{ '/architecture.html' | relative_url }}">Architecture</a>
+            <a href="{{ '/setup.html' | relative_url }}">Setup</a>
+            <a href="{{ '/environment.html' | relative_url }}">Environment</a>
+            <a href="{{ '/deployment.html' | relative_url }}">Deployment</a>
+            <a href="{{ '/routes.html' | relative_url }}">Routes and Flows</a>
+            <a href="{{ '/data-model.html' | relative_url }}">Data Model</a>
+            <a href="{{ '/development.html' | relative_url }}">Development Notes</a>
+          </div>
+        </aside>
+
+        <section class="docs-content">
+          <article class="glass docs-article">
+            {{ content }}
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
