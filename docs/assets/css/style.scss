@@ -160,15 +160,14 @@ blockquote {
   max-width: 640px;
 }
 
-.site-header__actions {
+.site-nav {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.repo-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.site-nav a {
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid #263449;
@@ -177,7 +176,7 @@ blockquote {
   transition: 0.18s ease;
 }
 
-.repo-link:hover {
+.site-nav a:hover {
   background: #1d2636;
   border-color: #4c5bff;
   transform: translateY(-1px);
@@ -274,6 +273,10 @@ blockquote {
 
   .site-header__inner {
     padding: 18px;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
   }
 
   .docs-article {

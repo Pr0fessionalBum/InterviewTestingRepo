@@ -1,8 +1,3 @@
----
-layout: default
-title: Data Model
----
-
 # Data Model
 
 ## MongoDB Collections

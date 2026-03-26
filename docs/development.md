@@ -1,8 +1,3 @@
----
-layout: default
-title: Development Notes
----
-
 # Development Notes
 
 ## Documentation Workflow

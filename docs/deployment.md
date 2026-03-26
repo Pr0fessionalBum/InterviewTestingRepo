@@ -1,8 +1,3 @@
----
-layout: default
-title: Deployment
----
-
 # Deployment
 
 ## Current Deployment Assumptions

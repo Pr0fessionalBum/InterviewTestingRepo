@@ -1,8 +1,3 @@
----
-layout: default
-title: Architecture
----
-
 # Architecture
 
 ## Top-Level Layout
