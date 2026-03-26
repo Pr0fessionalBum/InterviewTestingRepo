@@ -1,3 +1,8 @@
+---
+layout: default
+title: Home
+---
+
 # Virtual Interview Docs
 
 This documentation hub is designed for ongoing project maintenance, onboarding, and future feature work.

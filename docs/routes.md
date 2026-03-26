@@ -1,3 +1,8 @@
+---
+layout: default
+title: Routes and Flows
+---
+
 # Routes and Flows
 
 ## Public Routes

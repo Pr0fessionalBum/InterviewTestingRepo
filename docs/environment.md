@@ -1,3 +1,8 @@
+---
+layout: default
+title: Environment Variables
+---
+
 # Environment Variables
 
 ## Required
