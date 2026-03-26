@@ -8,6 +8,7 @@ The backend is grouped under `src/server` by domain and responsibility:
 src/
   server/
     app.js
+    admin/
     auth/
     resumes/
     interviews/
@@ -47,6 +48,12 @@ Account and profile behavior:
 - `authService.js`
 - `profileController.js`
 - `userRepository.js`
+
+### `src/server/admin`
+
+Admin-only user management and read access:
+
+- `adminController.js`
 
 ### `src/server/resumes`
 
@@ -98,6 +105,8 @@ Typical backend flow:
 3. Service performs app/domain logic.
 4. Repository reads or writes MongoDB data when needed.
 5. Controller renders a view or returns JSON.
+
+Admin-only routes follow the same pattern, but they reuse existing resume/interview services with an admin-selected target user instead of the current session owner.
 
 ## Frontend Layout
 

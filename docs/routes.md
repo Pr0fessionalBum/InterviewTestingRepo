@@ -64,6 +64,42 @@ Renders the user profile page.
 
 Updates the user profile.
 
+## Admin Routes
+
+All `/admin/*` routes require an authenticated admin account.
+
+### `GET /admin/users`
+
+Renders the admin user-management index.
+
+### `GET /admin/users/:userId`
+
+Renders one user's admin detail page.
+
+### `POST /admin/users/:userId`
+
+Updates another user's username, display name, role, or password.
+
+### `GET /admin/users/:userId/resumes`
+
+Renders the selected user's stored resumes.
+
+### `GET /admin/users/:userId/resumes/:resumeId`
+
+Renders the selected user's full resume score page.
+
+### `GET /admin/users/:userId/resumes/:resumeId/preview`
+
+Shows an admin preview of the stored resume text.
+
+### `GET /admin/users/:userId/chats`
+
+Renders the selected user's saved chat logs.
+
+### `GET /admin/users/:userId/chats/:chatId`
+
+Renders the selected user's saved chat log detail page.
+
 ## Interview Routes
 
 ### `GET /openai`
@@ -116,3 +152,10 @@ Renders transcript details for one chat.
 4. Each turn is persisted.
 5. Turn reviews are generated asynchronously.
 6. Final review is generated when the interview is closed.
+
+## High-Level Admin Flow
+
+1. Admin opens the user-management index.
+2. Admin searches for a user and opens the account detail page.
+3. Admin edits account information or opens the user's resume/chat history views.
+4. Admin can inspect stored resume scores, preview resume text, and review interview transcripts plus final interview scores.

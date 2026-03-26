@@ -68,6 +68,9 @@ Example:
 ADMIN_USERNAMES=ariana,teamlead
 ```
 
+This variable only promotes matching accounts to the `admin` role.
+It does not create accounts and it does not assign a default password.
+
 ### `DB_BOOT_MODE`
 
 Optional database boot selector.

@@ -7,12 +7,14 @@ Virtual Interview helps a user prepare for job applications by combining resume 
 The app currently supports:
 
 - user signup and login
+- bootstrap admin promotion by configured username
 - resume upload and preview
 - resume scoring against a job description
 - archived and active resume views
 - interview session generation
 - interview transcript persistence
 - post-interview scoring and review retrieval
+- admin-only access to user accounts, resumes, and chat logs
 
 ## Main User Journey
 
@@ -22,6 +24,13 @@ The app currently supports:
 4. The user can review saved resumes and prior score results.
 5. The user starts a mock interview using a selected resume.
 6. The app stores interview turns, chat logs, and final review data.
+
+## Admin Workflow
+
+1. An account is promoted to `admin` through the configured bootstrap usernames list.
+2. The admin opens the admin panel from the main navigation or profile page.
+3. The admin can search users, open an account detail page, and edit identity/role/password fields.
+4. The admin can inspect that user's stored resumes, full resume score pages, resume previews, chat logs, and chat-log detail pages.
 
 ## Current Runtime Shape
 
