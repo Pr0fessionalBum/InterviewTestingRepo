@@ -1,3 +1,8 @@
+/**
+ * MongoDB connection and collection bootstrap module.
+ * Inputs: Mongo connection settings from environment variables and the Express app instance.
+ * Outputs: Connected Mongo client/database handles, initialized collections, and collection indexes.
+ */
 const { MongoClient } = require('mongodb');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017';

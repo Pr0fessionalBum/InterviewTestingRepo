@@ -1,3 +1,8 @@
+/**
+ * Resume parsing helper module.
+ * Inputs: A resume file path pointing to a PDF or DOCX stored on disk.
+ * Outputs: Best-effort extracted text used for previews, scoring, and interview context.
+ */
 const fs = require('fs');
 const path = require('path');
 const { PdfReader } = require("pdfreader");

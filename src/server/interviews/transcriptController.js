@@ -1,3 +1,8 @@
+/**
+ * Transcript controller.
+ * Inputs: Express req/res objects, session user state, chat identifiers, and collections.
+ * Outputs: Renders transcript history/detail pages and returns transcript summaries as JSON.
+ */
 const { toObjectId } = require('../resumes/resumeRepository');
 const { findInterviewScoreByChatId } = require('./interviewScoreRepository');
 const {

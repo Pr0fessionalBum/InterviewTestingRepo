@@ -1,3 +1,8 @@
+/**
+ * Interview prompt builder module.
+ * Inputs: Interview state, user prompt/transcript history, context strings, and tone slider values.
+ * Outputs: System and user message arrays sent to OpenAI for interview generation.
+ */
 const clamp01 = (value, fallback = 0.5) => {
   const num = Number(value);
   if (!Number.isFinite(num)) return fallback;

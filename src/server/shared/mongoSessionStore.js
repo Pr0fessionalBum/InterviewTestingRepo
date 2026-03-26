@@ -1,3 +1,8 @@
+/**
+ * Mongo-backed Express session store.
+ * Inputs: Mongo connection details plus Express session store callbacks and session payloads.
+ * Outputs: Session persistence operations for get, set, touch, destroy, and cleanup.
+ */
 const session = require('express-session');
 const { MongoClient } = require('mongodb');
 

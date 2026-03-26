@@ -1,3 +1,8 @@
+/**
+ * Resume repository.
+ * Inputs: Collections, session user state, resume identifiers, and resume/score payloads.
+ * Outputs: Owned resume records, latest score joins, and persistence operations for resume data.
+ */
 const { ObjectId } = require('mongodb');
 const { ringColorForScore } = require('../shared/scoreColors');
 

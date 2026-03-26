@@ -1,3 +1,8 @@
+/**
+ * Persistence document builder module.
+ * Inputs: Plain application data for users, resumes, chats, and interview reviews.
+ * Outputs: Normalized MongoDB document objects ready to insert or upsert.
+ */
 const buildUser = ({ username, name, passwordHash, role = 'candidate' }) => ({
   username: username?.toLowerCase(),
   name,

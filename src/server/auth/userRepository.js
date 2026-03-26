@@ -1,3 +1,8 @@
+/**
+ * User repository.
+ * Inputs: Mongo collections plus user identifiers, usernames, and update payloads.
+ * Outputs: User records for authentication and profile flows.
+ */
 const { buildUser } = require('../data/persistence');
 const { toObjectId } = require('../resumes/resumeRepository');
 

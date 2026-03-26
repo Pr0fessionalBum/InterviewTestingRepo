@@ -1,3 +1,8 @@
+/**
+ * Interview API/page controller.
+ * Inputs: Express req/res objects, interview request payloads, session state, and app-local collections.
+ * Outputs: Renders the interview page and returns JSON responses for interview actions.
+ */
 const { getOpenAIClient, interviewModel } = require('../shared/openaiClient');
 const {
   requireConfiguredClient,

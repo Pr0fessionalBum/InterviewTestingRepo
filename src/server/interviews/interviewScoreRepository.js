@@ -1,3 +1,8 @@
+/**
+ * Interview score repository.
+ * Inputs: Collections plus final review data, user identifiers, and chat identifiers.
+ * Outputs: Persisted and retrieved final interview score documents.
+ */
 const { buildInterviewScore } = require('../data/persistence');
 
 const upsertInterviewScore = async ({

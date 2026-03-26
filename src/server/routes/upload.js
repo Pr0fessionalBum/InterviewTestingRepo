@@ -1,3 +1,8 @@
+/**
+ * Resume upload route module.
+ * Inputs: Express router, Multer storage config, and resume controller handlers.
+ * Outputs: Mounted routes for upload page rendering, file submission, and preview access.
+ */
 const express = require('express');
 const multer = require('multer');
 const path = require('path');

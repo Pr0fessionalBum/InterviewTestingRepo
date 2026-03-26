@@ -1,3 +1,8 @@
+/**
+ * Interview review service.
+ * Inputs: OpenAI client, transcript content, turn context, resume/job context, and review scoring data.
+ * Outputs: Normalized turn-level feedback and final interview review objects.
+ */
 const { interviewModel, reviewModel } = require('../shared/openaiClient');
 
 const safeString = (value, fallback = '') =>

@@ -1,3 +1,8 @@
+/**
+ * Web research helper module.
+ * Inputs: An OpenAI client plus optional company and role strings.
+ * Outputs: A short research summary and bullet list used to enrich scoring and interview context.
+ */
 const defaultSearchModel = 'gpt-4.1';
 
 const extractText = (response) => {

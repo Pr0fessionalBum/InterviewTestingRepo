@@ -1,3 +1,8 @@
+/**
+ * Score color mapping helper.
+ * Inputs: Numeric resume or interview scores.
+ * Outputs: Hex color values used to render score rings and score state in the UI.
+ */
 const ringColorForScore = (score) => {
   if (typeof score !== 'number') return '#555';
   if (score <= 20) return '#d64545';

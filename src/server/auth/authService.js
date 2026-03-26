@@ -1,3 +1,8 @@
+/**
+ * Authentication service.
+ * Inputs: User credentials/profile values plus Mongo collections for user lookups and creation.
+ * Outputs: Validated session-safe user objects for signup and login flows.
+ */
 const bcrypt = require('bcryptjs');
 const { findUserByUsername, createUser } = require('./userRepository');
 

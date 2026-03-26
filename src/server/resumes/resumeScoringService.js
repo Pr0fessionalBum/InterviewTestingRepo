@@ -1,3 +1,8 @@
+/**
+ * Resume scoring service.
+ * Inputs: Uploaded resume files, job/company context, environment-configured OpenAI access, and collections.
+ * Outputs: Parsed scoring results plus persisted resume file and resume score records.
+ */
 const OpenAI = require('openai');
 const { buildResumeFile, buildResumeScore } = require('../data/persistence');
 const { parseResumeToText } = require('../shared/resumeParser');

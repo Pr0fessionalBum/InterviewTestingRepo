@@ -1,3 +1,8 @@
+/**
+ * Authentication controller.
+ * Inputs: Express req/res objects, form data in req.body, sessions, and app-local collections.
+ * Outputs: Renders auth views, updates session state, and redirects after auth actions.
+ */
 const { signupUser, loginUser } = require('./authService');
 
 const saveSession = (req) =>

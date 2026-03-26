@@ -1,3 +1,8 @@
+/**
+ * Authentication route module.
+ * Inputs: Express router plus auth controller handlers.
+ * Outputs: Mounted login, signup, and logout routes.
+ */
 const express = require('express');
 const router = express.Router();
 const { showLogin, showSignup, signup, login, logout } = require('../auth/authController');

@@ -1,3 +1,8 @@
+/**
+ * Profile controller.
+ * Inputs: Express req/res objects, session user state, profile form values, and collections.
+ * Outputs: Renders the profile page and persists profile updates when submitted.
+ */
 const bcrypt = require('bcryptjs');
 const { findUserById, updateUserById } = require('./userRepository');
 const { toSessionUser } = require('./authService');

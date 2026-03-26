@@ -1,3 +1,8 @@
+/**
+ * Interview input validation module.
+ * Inputs: Raw request bodies for interview start and ask actions plus OpenAI client presence.
+ * Outputs: Sanitized interview payloads or thrown HTTP-friendly validation errors.
+ */
 const requireConfiguredClient = (openaiClient) => {
   if (!openaiClient) {
     const error = new Error('OpenAI client not configured.');

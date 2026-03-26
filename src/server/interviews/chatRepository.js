@@ -1,3 +1,8 @@
+/**
+ * Chat repository.
+ * Inputs: Collections, chat identifiers, user identifiers, transcripts, and turn metadata.
+ * Outputs: Persisted and retrieved chat log and chat turn records.
+ */
 const { buildChatLog, buildChatTurn } = require('../data/persistence');
 
 const upsertChatTranscript = async ({

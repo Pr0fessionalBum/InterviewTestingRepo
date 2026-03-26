@@ -1,3 +1,8 @@
+/**
+ * Interview context service.
+ * Inputs: Collections, selected resume id, session user state, company/role context, and OpenAI client.
+ * Outputs: Cached interview context including resume text, research summary, and background document text.
+ */
 const { parseResumeToText } = require('../shared/resumeParser');
 const { runWebResearch } = require('../shared/webResearch');
 const { findOwnedResumeById } = require('../resumes/resumeRepository');

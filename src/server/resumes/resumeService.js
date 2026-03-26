@@ -1,3 +1,8 @@
+/**
+ * Resume view service.
+ * Inputs: Collections, session user state, resume identifiers, upload payloads, and parsed resume data.
+ * Outputs: View-model objects for upload results, resume lists, results pages, and previews.
+ */
 const { ringColorForScore } = require('../shared/scoreColors');
 const { parseResumeToText } = require('../shared/resumeParser');
 const {

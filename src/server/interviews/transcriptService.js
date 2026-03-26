@@ -1,3 +1,8 @@
+/**
+ * Transcript persistence service.
+ * Inputs: Chat transcript state, identifiers, generated replies, and Mongo collections.
+ * Outputs: Persisted turn records with fallback transcript writes if the primary write fails.
+ */
 const { upsertChatTranscript, insertFallbackTranscript } = require('./chatRepository');
 
 const persistInterviewTurn = async ({

@@ -1,3 +1,8 @@
+/**
+ * Resume controller.
+ * Inputs: Express req/res objects, uploaded files, query/body values, sessions, and collections.
+ * Outputs: Renders resume upload/list/results views and processes archive/preview actions.
+ */
 const {
   getResumeCollectionView,
   getResumeResultsView,

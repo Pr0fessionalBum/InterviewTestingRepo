@@ -1,3 +1,8 @@
+/**
+ * Application entry point.
+ * Inputs: Environment variables plus the assembled Express app and database connection helpers.
+ * Outputs: Starts the HTTP server, initializes MongoDB, and shuts resources down on SIGINT.
+ */
 require('dotenv').config();
 const app = require('./src/server/app');
 const { connectDb, closeDb, MONGODB_URI, MONGODB_DB } = require('./src/server/data/db');

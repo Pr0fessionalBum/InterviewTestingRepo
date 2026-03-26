@@ -1,3 +1,8 @@
+/**
+ * Interview route module.
+ * Inputs: Express router plus interview and transcript controller handlers.
+ * Outputs: Mounted page, API, transcript, and review routes for the interview feature.
+ */
 const express = require('express');
 const router = express.Router();
 const {

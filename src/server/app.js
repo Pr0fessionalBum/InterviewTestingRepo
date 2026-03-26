@@ -1,3 +1,8 @@
+/**
+ * Express application assembly module.
+ * Inputs: Environment variables, route modules, session store configuration, and static asset paths.
+ * Outputs: A configured Express app with middleware, auth guard, and mounted routes.
+ */
 const express = require('express');
 const path = require('path');
 const fs = require('fs');

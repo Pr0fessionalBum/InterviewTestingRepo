@@ -1,3 +1,8 @@
+/**
+ * Interview orchestration service.
+ * Inputs: Collections, session user state, OpenAI client, session ids, chat ids, and interview payloads.
+ * Outputs: Interview openers, turn replies, turn review state, and final review results.
+ */
 const { ringColorForScore } = require('../shared/scoreColors');
 const { interviewModel } = require('../shared/openaiClient');
 const {

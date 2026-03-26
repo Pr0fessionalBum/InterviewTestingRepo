@@ -1,3 +1,8 @@
+/**
+ * Shared OpenAI client module.
+ * Inputs: Environment variables for API key and model selection.
+ * Outputs: A cached OpenAI client instance plus model names used across the app.
+ */
 const OpenAI = require('openai');
 
 const interviewModel = process.env.MODEL || 'gpt-4.1-mini';
