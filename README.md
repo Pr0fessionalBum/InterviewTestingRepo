@@ -1,6 +1,6 @@
 # Virtual Interview App
 
-Express + EJS app for uploading resumes, scoring them against a target role, and running a customizable mock interview workflow.
+Express + EJS app for uploading resumes, scoring them against a target role, and running a customizable mock interview workflow with an AI interviewer avatar, voice features, camera preview, and eye-contact tracking.
 
 ## Quick Start
 
@@ -50,6 +50,10 @@ Project docs live in the [`docs/`](./docs/index.md) folder and are designed to b
 - resume scoring against a job description
 - archived and active resume management
 - mock interview generation with stored context
+- avatar-based interview UI with live subtitles
+- browser speech-to-text for candidate responses
+- OpenAI text-to-speech playback for interviewer replies
+- optional camera preview and eye-contact tracking during interviews
 - transcript history and interview review persistence
 
 ## Tech Stack
@@ -65,4 +69,5 @@ Project docs live in the [`docs/`](./docs/index.md) folder and are designed to b
 
 - uploaded files live in the top-level `uploads/` directory
 - sessions are stored in MongoDB
+- the interview experience uses browser microphone and camera permissions when voice or camera features are enabled
 - docs are intended to be published from the `/docs` folder using GitHub Pages
