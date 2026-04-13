@@ -110,10 +110,39 @@ const getReview = async (req, res) => {
   }
 };
 
+const textToSpeech = async (req, res) => {
+  try {
+    const openaiClient = getOpenAIClient();
+    requireConfiguredClient(openaiClient);
+
+    const text = typeof req.body?.text === 'string' ? req.body.text.trim() : '';
+    if (!text) {
+      return res.status(400).json({ error: 'text required' });
+    }
+
+    const response = await openaiClient.audio.speech.create({
+      model: 'tts-1',
+      voice: 'shimmer',
+      input: text.slice(0, 4096),
+      response_format: 'mp3',
+    });
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.set('Content-Type', 'audio/mpeg');
+    res.set('Content-Length', buffer.length);
+    res.set('Cache-Control', 'no-store');
+    return res.send(buffer);
+  } catch (error) {
+    console.error('textToSpeech failed:', error);
+    return res.status(error.status || 500).json({ error: error.message || 'TTS failed' });
+  }
+};
+
 module.exports = {
   showOpenAIPage,
   askOpenAI,
   startInterview,
   closeChat,
   getReview,
+  textToSpeech,
 };

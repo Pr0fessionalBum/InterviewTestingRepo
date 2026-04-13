@@ -17,7 +17,8 @@ export const createVoiceInput = ({ micBtn, micStatus, promptInput }) => {
   recognition.continuous = true;
 
   let listening = false;
-  let dictBuffer = '';
+  let baseText = '';
+  let finalizedText = '';
 
   recognition.onstart = () => {
     listening = true;
@@ -30,14 +31,13 @@ export const createVoiceInput = ({ micBtn, micStatus, promptInput }) => {
     listening = false;
     micBtn.classList.remove('active');
     micBtn.classList.add('outline');
-    if (dictBuffer) {
+    if (finalizedText.trim()) {
       const trimmed = promptInput.value.trim();
       if (trimmed && !/[.!?]$/.test(trimmed)) {
         promptInput.value = `${trimmed}.`;
       }
     }
-    dictBuffer = '';
-    delete promptInput.dataset.baseText;
+    finalizedText = '';
     if (micStatus.textContent.startsWith('Listening')) {
       micStatus.textContent = '';
     }
@@ -51,22 +51,18 @@ export const createVoiceInput = ({ micBtn, micStatus, promptInput }) => {
   };
 
   recognition.onresult = (event) => {
-    let finalText = '';
     let interimText = '';
 
     for (let i = event.resultIndex; i < event.results.length; i += 1) {
       const transcript = event.results[i][0].transcript;
       if (event.results[i].isFinal) {
-        finalText += transcript;
+        finalizedText += `${transcript} `;
       } else {
         interimText += transcript;
       }
     }
 
-    const existing = promptInput.dataset.baseText || promptInput.value;
-    dictBuffer = (finalText || interimText).trim();
-    promptInput.value = `${existing} ${dictBuffer}`.trim();
-    promptInput.dataset.baseText = existing;
+    promptInput.value = `${baseText} ${finalizedText}${interimText}`.trim();
   };
 
   micBtn.addEventListener('click', () => {
@@ -75,8 +71,8 @@ export const createVoiceInput = ({ micBtn, micStatus, promptInput }) => {
       return;
     }
 
-    promptInput.dataset.baseText = promptInput.value;
-    micStatus.textContent = 'Listening... tap to stop';
+    baseText = promptInput.value;
+    finalizedText = '';
     recognition.start();
   });
 };

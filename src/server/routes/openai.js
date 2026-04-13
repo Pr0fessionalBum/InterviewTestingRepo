@@ -11,6 +11,7 @@ const {
   startInterview,
   closeChat,
   getReview,
+  textToSpeech,
 } = require('../interviews/interviewController');
 const {
   showChatLogsPage,
@@ -26,5 +27,6 @@ router.get('/review', getReview);
 router.post('/ask', askOpenAI);
 router.post('/start', startInterview);
 router.post('/close', closeChat);
+router.post('/tts', textToSpeech);
 
 module.exports = router;
